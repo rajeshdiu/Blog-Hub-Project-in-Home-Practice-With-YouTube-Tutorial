@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+
+
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Feed</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .post {
+            border-bottom: 1px solid #ccc;
+            padding: 20px 0;
+        }
+
+        .post:last-child {
+            border-bottom: none;
+        }
+
+        .post img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        .post h2 {
+            margin: 10px 0;
+            font-size: 24px;
+            color: #007BFF;
+        }
+
+        .post .category {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .post p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .read-more {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .read-more:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>You have search for {{query}}</h1>
+
+        
+        {% for blog in blogs %}
+            
+
+      
+        <div class="post">
+            <img src="/{{blog.Blog_Pic}}" alt="Blog Image">
+            <h2>{{blog.BlogTitle}}</h2>
+            <div class="category">Category: {{blog.Category}}</div>
+            <p>{{blog.BlogBody}}</p>
+            <a href="#" class="read-more">Read More</a>
+        </div>
+        
+        {% endfor %}
+            
+
+
+       
+        <!-- Add more posts as needed -->
+    </div>
+</body>
+</html>
+
+    
+{% endblock body %}
+    

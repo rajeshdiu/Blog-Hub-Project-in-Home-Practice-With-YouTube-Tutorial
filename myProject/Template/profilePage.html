@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        
+
+        .profile-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        .profile-container img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #4a90e2;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin: 10px 0;
+            color: #333;
+            font-size: 1.8em;
+        }
+
+        .user-info {
+            margin: 10px 0;
+            color: #555;
+            font-size: 0.95em;
+        }
+
+        .button-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .edit-button, .action-link {
+            padding: 10px 15px;
+            margin: 5px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            text-align: center;
+            flex: 1 1 auto; /* Flex property for responsiveness */
+        }
+
+        .edit-button:hover, .action-link:hover {
+            background-color: #357ab8;
+        }
+
+        @media (max-width: 480px) {
+            .profile-container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <img src="/{{ request.user.profile_pic }}" alt="Profile Picture">
+        <h2>{{ request.user.username }}</h2>
+        <p class="user-info"><strong>Email:</strong> {{ request.user.email }}</p>
+        <p class="user-info"><strong>Age:</strong> {{ request.user.Age }}</p>
+        <p class="user-info"><strong>Gender:</strong> {{ request.user.Gender }}</p>
+        <p class="user-info"><strong>Contact No:</strong> {{ request.user.Contact_No }}</p>
+        <p class="user-info"><strong>User Type:</strong> {{ request.user.user_type }}</p>
+
+        {% if request.user.user_type == 'blogger' %}
+        <div class="button-container">
+            <a href="{% url 'addBlogPage' %}" class="action-link">Add Blog</a>
+            <a href="{% url 'createdBlogBy' %}" class="action-link">Created Blogs</a>
+        </div>
+        {% endif %}
+
+        <a href="{% url 'editProfilePage' %}" class="action-link">Edit Profile</a>
+    </div>
+</body>
+</html>
+{% endblock body %}

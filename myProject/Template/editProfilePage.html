@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+
+
+
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile Form</title>
+    <style>
+
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 500px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .form-row label {
+            margin: 0 0 5px;
+            display: block;
+            color: #555;
+            flex-basis: 45%;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>User Profile</h2>
+        <form action=" " method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row">
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" value="{{request.user.username}}" name="username" required>
+                </div>
+                <div>
+                    <label for="first_name">First Name:</label>
+                    <input type="text" id="first_name" value="{{request.user.first_name}}" name="first_name" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" id="last_name" value="{{request.user.last_name}}" name="last_name" required>
+                </div>
+                <div>
+                    <label for="profile_pic">Profile Picture:</label>
+                    <input type="file" id="profile_pic" name="profile_pic">
+                </div>
+                <div>
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender" required>
+                        <option value="">Select...</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" value="{{request.user.email}}" name="email" required>
+                </div>
+                <div>
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" value="{{request.user.Age}}" name="age" min="1" max="100" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label for="contact_no">Contact No:</label>
+                    <input type="text" id="contact_no" value="{{request.user.Contact_No}}" name="contact_no" required>
+                </div>
+                
+            </div>
+
+            
+            {% if request.user.user_type == 'blogger' %}
+            
+
+            <div>
+                <label for="bio">Bio:</label>
+                <textarea id="bio" value="" name="bio" rows="4">{{request.user.bloggersProfile.Bio}}</textarea>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label for="website_url">Website URL:</label>
+                    <input type="text" id="website_url" value="{{request.user.bloggersProfile.website_url}}" name="website_url">
+                </div>
+            </div>
+            <div>
+                <label for="location">Location:</label>
+                <input type="text" id="location" value="{{request.user.bloggersProfile.location}}"  name="location">
+            </div>
+                
+            {% endif %}
+                
+
+            
+            {% if request.user.user_type == 'viewers' %}
+            <div class="form-row">
+                <div>
+                    <label for="bio">Bio:</label>
+                    <textarea id="bio" value="" name="bio" rows="4">{{request.user.viewersProfile.Bio}}</textarea>
+                </div>
+                <div>
+                    <label for="interests">Interests:</label>
+                    <input type="text" id="interests" value="{{request.user.viewersProfile.interests}}"  name="interests">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label for="preferred_content_type">Preferred Content Type:</label>
+                    <select id="preferred_content_type" name="preferred_content_type" required>
+                        <option value="">Select...</option>
+                        <option value="articles">Articles</option>
+                        <option value="videos">Videos</option>
+                        <option value="podcasts">Podcasts</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" value="{{request.user.viewersProfile.location}}"  name="location">
+                </div>
+            </div>
+                
+            {% endif %}
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
+
+    
+{% endblock body %}
+    
